@@ -1,6 +1,6 @@
 # Selvedge Studio
 
-A clothing storefront with a shopping bag and WhatsApp ordering. It ships with four sample products priced in USD. Change names, categories, colors, product images and SKUs in `seed.mjs`. The WhatsApp workflow updates prices and sizes for those SKUs.
+A clothing storefront with a shopping bag and WhatsApp ordering. It ships with four sample products priced in Ghana cedis (GHS). Change names, categories, colors, product images and SKUs in `seed.mjs`. The WhatsApp workflow updates prices and sizes for those SKUs.
 
 ## Preview locally
 

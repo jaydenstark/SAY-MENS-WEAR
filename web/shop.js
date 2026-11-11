@@ -1,5 +1,5 @@
 const categories = ['All', 'Tops', 'Bottoms', 'Layers'];
-const currency = new Intl.NumberFormat('en-US', {style:'currency', currency:'USD'});
+const currency = new Intl.NumberFormat('en-GH', {style:'currency', currency:'GHS'});
 const money = cents => currency.format(cents / 100);
 const byId = id => document.getElementById(id);
 const escape = value => String(value).replace(/[&<>"']/g, char => ({

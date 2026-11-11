@@ -5,7 +5,7 @@ const secretNames = ['WHATSAPP_APP_SECRET','WHATSAPP_VERIFY_TOKEN','WHATSAPP_PHO
 const skuPattern = /^[A-Z0-9-]{1,30}$/;
 
 export function parseUpdate(body) {
-  const match = /^UPDATE\s+([A-Z0-9-]+)[ \t]*\r?\n[ \t]*SIZES:[ \t]*([^\r\n]+)\r?\n[ \t]*PRICE:[ \t]*\$?(\d{1,5})(?:\.(\d{1,2}))?$/i.exec(body.trim());
+  const match = /^UPDATE\s+([A-Z0-9-]+)[ \t]*\r?\n[ \t]*SIZES:[ \t]*([^\r\n]+)\r?\n[ \t]*PRICE:[ \t]*(?:(?:GH₵|GH¢|₵|GHS)[ \t]*)?(\d{1,5})(?:\.(\d{1,2}))?$/i.exec(body.trim());
   if (!match) return null;
   const sku = match[1].toUpperCase();
   const sizes = [...new Set(match[2].split(',').map(size => size.trim().toUpperCase()))];
