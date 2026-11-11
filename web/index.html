@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Shop Selvedge Studio's collection of modern wardrobe essentials.">
+<title>Selvedge Studio | Modern wardrobe essentials</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/style.css"><script src="/shop.js" type="module"></script>
+</head>
+<body>
+<div class="announcement">THE EVERYDAY COLLECTION IS HERE <span>✦</span></div>
+<header class="nav">
+<a href="/" class="logo">selvedge<span>.</span></a>
+<nav aria-label="Main navigation"><a href="#collection" data-filter="All">Shop all</a><a href="#collection" data-filter="Tops">Tops</a><a href="#collection" data-filter="Bottoms">Bottoms</a><a href="#collection" data-filter="Layers">Layers</a></nav>
+<button class="bag-link" id="open-bag">Bag <span id="count">0</span></button>
+</header>
+<main>
+<section class="hero">
+<div class="hero-copy"><div class="eyebrow"><span></span> THE EVERYDAY COLLECTION</div><h1>Getting dressed<br>made <em>simple.</em></h1><p>Easy layers, relaxed cuts, and the pieces<br class="desktop"> you’ll reach for on repeat.</p><a class="button" href="#collection">Explore the collection <span aria-hidden="true">↗</span></a></div>
+<img src="/assets/hero.jpg" alt="Model wearing an olive jacket and cream trousers in the sun">
+</section>
+<section id="collection" class="collection">
+<div class="collection-head"><div><p class="eyebrow">SHOP THE COLLECTION</p><h2>Everyday essentials</h2></div><div id="filters" aria-label="Filter products"></div></div>
+<div id="products" class="products" aria-live="polite"></div>
+</section>
+</main>
+<footer><a href="/" class="logo">selvedge<span>.</span></a><p>© Selvedge Studio</p><a href="#collection">Back to collection ↑</a></footer>
+<dialog id="detail" aria-label="Product details"><div id="detail-content"></div></dialog>
+<dialog id="bag" aria-label="Shopping bag"><div id="bag-content"></div></dialog>
+</body></html>
