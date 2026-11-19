@@ -5,7 +5,7 @@ const files = {
   '/style.css':['style.css','text/css; charset=utf-8'],
   '/shop.js':['shop.js','text/javascript; charset=utf-8'],
 };
-for (const name of ['hero','linen','trouser','jacket','tank']) {
+for (const name of ['hero','hero-mobile','linen','trouser','jacket','tank']) {
   files['/assets/' + name + '.jpg'] = ['assets/' + name + '.jpg','image/jpeg'];
 }
 const assets = {};
