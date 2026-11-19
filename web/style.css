@@ -183,3 +183,18 @@ body:has(dialog[open]) { overflow: hidden; }
   html { scroll-behavior: auto; }
   .product-image img { transition: none; }
 }
+
+/* Say Menswear wordmark and contact section. */
+.logo { display: flex; align-items: baseline; gap: 8px; }
+.logo .brand-name { color: var(--ink); font-family: var(--serif); font-size: 46px; }
+.logo .brand-type { color: var(--ink); font: 600 .6875rem/1 Inter, sans-serif; letter-spacing: .14em; }
+.contact-section { margin: 0 6% 56px; padding: 34px; background: #e9ecdf; border-radius: 10px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 36px; }
+.contact-section h2 { font-size: clamp(36px,4vw,52px); line-height: 1.05; letter-spacing: -.025em; margin-top: 12px; }
+.contact-section p:not(.eyebrow) { max-width: 490px; color: var(--muted); font-size: .9375rem; margin-bottom: 0; }
+.contact-actions { display: flex; flex-direction: column; gap: 10px; text-align: center; }
+.call-link { display: flex; align-items: center; justify-content: center; min-height: 44px; font-size: .875rem; text-decoration: underline; text-underline-offset: 4px; }
+@media(max-width:700px) {
+  .logo .brand-name { font-size: 38px; }
+  .logo .brand-type { font-size: .625rem; }
+  .contact-section { grid-template-columns: 1fr; gap: 24px; margin: 0 5% 32px; padding: 28px 22px; }
+}

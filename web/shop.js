@@ -94,7 +94,7 @@ function showBag() {
   const total = lines.reduce((sum,line) => sum + (line.product?.price || 0) * line.quantity, 0);
   const available = lines.length && lines.every(line => line.product);
   const order = available ? [
-    'Hi Selvedge Studio! I’d like to order:',
+    'Hi Say Menswear! I’d like to order:',
     ...lines.map(({product,size,quantity}) => `• ${quantity} × ${product.name} (${product.sku}), size ${size} — ${money(product.price * quantity)}`),
     `Subtotal: ${money(total)}`
   ].join('\n') : '';
