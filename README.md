@@ -1,35 +1,107 @@
-# Selvedge Studio
+# Say Menswear 🇬🇭
 
-A clothing storefront with a shopping bag and WhatsApp ordering. It ships with four sample products priced in Ghana cedis (GHS). Change names, categories, colors, product images and SKUs in `seed.mjs`. The WhatsApp workflow updates prices and sizes for those SKUs.
+> **Dress well. Feel confident.**  
+> Handcrafted bespoke caftans, embroidered agbada sets, and signature African menswear tailored in Tema Community 8, Greater Accra, Ghana.
 
-## Preview locally
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Location](https://img.shields.io/badge/Studio-Tema%20Community%208%2C%20Ghana-olive)](#location--studio)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-Order%20%26%20Enquiries-25D366?logo=whatsapp&logoColor=white)](https://wa.me/233279587605)
 
-Run `npm run build` and `npm start`, then open the address printed by the server. The local preview uses sample catalog data. The hosted Worker uses the Sites R2 binding `BUCKET` to persist product updates across visitors.
+---
 
-## Connect WhatsApp Business
+## ✨ Highlights
 
-Configure the following runtime variables in your hosting dashboard. Store the app secret and verification token as secrets.
+- **Modern Luxury & Heritage Aesthetic**: Warm ivory alabaster surfaces, rich heritage olive tones, and warm gold accents paired with editorial serif typography (*Instrument Serif* & *Inter*).
+- **Mobile UX Polish**:
+  - **Slide-Over Shopping Drawer**: Desktop right slide-over drawer that adapts into an ergonomic mobile bottom sheet with drag handles.
+  - **Sticky Mobile Navigation**: Frosted glass header with live gold cart counter.
+  - **Ergonomic Bottom Nav Bar**: Quick-access touch bar for Collection, Search, Bespoke consultation, and Bag.
+  - **Floating WhatsApp Concierge**: Instant 1-tap connection to our master tailor in Tema.
+- **Direct WhatsApp Ordering**:
+  - Automatically formats structured orders with SKU, sizes, quantities, and subtotal in Ghana cedis (GH₵).
+  - Dedicated "Price on Enquiry" flow for bespoke commissions and custom measurements.
+- **Dynamic Catalog via WhatsApp Webhook**:
+  - Shop administrators can update sizes and prices on the fly via SMS/WhatsApp commands saved directly to Cloudflare R2 storage.
 
-| Variable | Value |
-| --- | --- |
-| `WHATSAPP_APP_SECRET` | App secret from the Meta developer app |
-| `WHATSAPP_VERIFY_TOKEN` | A random token you choose and enter in Meta during webhook setup |
-| `WHATSAPP_PHONE_ID` | Meta's phone number ID for the receiving Business number |
-| `WHATSAPP_ADMIN_PHONE` | Sender's WhatsApp number, with country code and digits only. Use a separate number from the receiving number. |
-| `WHATSAPP_ORDER_PHONE` | Shop number for customer orders, with country code and digits only |
+---
 
-Configure your Meta WhatsApp Business webhook to use `https://YOUR-HOST/api/whatsapp/webhook`, verify it with your token, and subscribe to `messages`. Meta must be able to reach the callback without a login page, so a private Sites deployment needs public hosting before this step. The webhook verifies Meta's signature and accepts catalog updates from the configured sender and Business phone ID.
+## 🛠️ Tech Stack
 
-Send this text from the configured admin number to your WhatsApp Business number, then refresh the storefront to see the change.
+- **Frontend**: Vanilla ES Modules, Semantic HTML5, Custom CSS Design System (no heavy frameworks, zero runtime dependencies, instant load speeds).
+- **Backend / Edge**: Cloudflare Workers / Sites with R2 bucket binding for persistent catalog caching.
+- **Integrations**: Meta WhatsApp Business Cloud Webhook API.
+
+---
+
+## 🚀 Quick Start & Local Preview
+
+### Prerequisites
+- Node.js (v18 or newer)
+- npm
+
+### Installation & Running Locally
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/jaydenstark/SAY-MENS-WEAR.git
+   cd SAY-MENS-WEAR
+   ```
+
+2. **Build the bundle**:
+   ```bash
+   npm run build
+   ```
+
+3. **Start the local preview server**:
+   ```bash
+   npm start
+   ```
+
+4. Open `http://127.0.0.1:4175` in your browser.
+
+---
+
+## 📱 Connect WhatsApp Business Webhook
+
+To enable dynamic live pricing and size updates from WhatsApp, set the following environment variables in your Cloudflare or hosting dashboard:
+
+| Variable | Description |
+| :--- | :--- |
+| `WHATSAPP_APP_SECRET` | App secret from your Meta Developer Portal |
+| `WHATSAPP_VERIFY_TOKEN` | Secure verification token created during webhook configuration |
+| `WHATSAPP_PHONE_ID` | Meta Phone Number ID for the receiving business account |
+| `WHATSAPP_ADMIN_PHONE` | Admin WhatsApp number authorized to send catalog updates (digits with country code, e.g. `233...`) |
+| `WHATSAPP_ORDER_PHONE` | Customer order receiving line (`233279587605`) |
+
+### Webhook Endpoint
+Configure your Meta WhatsApp webhook callback URL to:
+```
+https://YOUR-DOMAIN.com/api/whatsapp/webhook
+```
+Subscribe to the `messages` event.
+
+### Updating Catalog from WhatsApp
+Send a text message from the configured `WHATSAPP_ADMIN_PHONE` to the business number:
 
 ```text
-UPDATE LINEN-01
-SIZES: XS, S, M, L, XL
-PRICE: 68.00
+UPDATE SAY-CAFTAN-GREEN
+SIZES: S, M, L, XL, XXL
+PRICE: 450.00
 ```
 
-Each message replaces the sizes and price for one SKU. Available sample SKUs are `LINEN-01`, `TROUSER-01`, `JACKET-01`, and `TANK-01`. Customers choose sizes, add items to the bag, and send the order to the shop on WhatsApp for delivery and payment arrangements.
+The worker verifies Meta’s HMAC-SHA256 signature and persists the new price and sizing in Cloudflare R2 storage instantly.
 
-## Sample photography
+---
 
-The built-in ImageGen tool created a five-panel fashion contact sheet with an olive-jacket campaign photo and four flat lays on putty. The crops are in `web/assets/`.
+## 📍 Location & Studio
+
+- **Studio**: Tema Community 8, Greater Accra, Ghana
+- **Hours**: Monday – Saturday, 9:00 AM – 6:00 PM GMT
+- **Phone**: [+233 27 958 7605](tel:+233279587605)
+- **WhatsApp**: [Chat with Say Menswear](https://wa.me/233279587605)
+
+---
+
+## 📄 License
+
+Private & Proprietary © 2026 Say Menswear. All rights reserved.
