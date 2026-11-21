@@ -14,6 +14,7 @@ let category = 'All';
 let search = '';
 let sort = 'featured';
 let catalogReady = false;
+let catalogFailed = false;
 let items = [];
 
 try {
@@ -46,10 +47,13 @@ function renderProducts() {
     (category === 'All' || product.category === category) &&
     [product.name, product.color, product.category, product.sku].join(' ').toLowerCase().includes(search));
 
+  if (sort === 'name') visible.sort((a,b) => a.name.localeCompare(b.name));
   if (sort === 'price-low') visible.sort((a,b) => (a.price ?? Infinity) - (b.price ?? Infinity));
   if (sort === 'price-high') visible.sort((a,b) => (b.price ?? -Infinity) - (a.price ?? -Infinity));
 
-  byId('results').textContent = `Showing ${visible.length} ${visible.length === 1 ? 'handcrafted piece' : 'handcrafted pieces'}`;
+  byId('results').textContent = visible.length + (visible.length === 1 ? ' style' : ' styles');
+  const hasFilters = category !== 'All' || Boolean(search);
+  byId('reset-search').hidden = !hasFilters;
   byId('clear-search').hidden = !search;
 
   document.querySelectorAll('.nav [data-filter]').forEach(link => {
@@ -60,9 +64,7 @@ function renderProducts() {
   byId('products').innerHTML = visible.map(product =>
     `<article class="product">
       <button class="product-image" type="button" data-product="${escape(product.sku)}" aria-label="View details for ${escape(product.name)}">
-        <span class="product-badge">${escape(product.category)}</span>
         ${image(product)}
-        <span class="product-action-badge" aria-hidden="true">+</span>
       </button>
       <div class="product-line">
         <h3><button class="product-name" data-product="${escape(product.sku)}">${escape(product.name)}</button></h3>
@@ -71,10 +73,10 @@ function renderProducts() {
       <div class="product-meta">
         <span>${escape(product.color)}</span>
         <span class="dot" aria-hidden="true">·</span>
-        <span>${product.sizes.length ? escape(product.sizes.join(', ')) : 'Bespoke measurements'}</span>
+        <span>${product.sizes.length ? escape(product.sizes.join(', ')) : 'Ask about sizing'}</span>
       </div>
       <button class="choose-size" data-product="${escape(product.sku)}">
-        ${Number.isInteger(product.price) ? 'Select Size' : 'Enquire on WhatsApp'}
+        ${Number.isInteger(product.price) && product.sizes.length ? 'Select size' : 'View details'}
       </button>
     </article>`).join('') ||
     `<div class="empty-state">
@@ -97,9 +99,9 @@ function showProduct(product) {
         ${gallery(product)}
         <div class="detail-info">
           <p class="eyebrow">${escape(product.category)} · TEMA BESPOKE</p>
-          <p class="price">Price on Enquiry</p>
+          <p class="price">${money(product.price)}</p>
           <p class="detail-color">Colour: <strong>${escape(product.color)}</strong></p>
-          <p class="note">Each piece is individually tailored to your precise measurements using premium fabric. Contact our studio to confirm availability and discuss custom fitting.</p>
+          <p class="note">Ask about the available sizes and price, or discuss a bespoke fit with our studio.</p>
           <div style="margin-top: 24px;">
             <a class="button button-wa" href="https://wa.me/${orderPhone}?text=${enquiry}" target="_blank" rel="noopener">
               ${waIcon}
@@ -132,7 +134,7 @@ function showProduct(product) {
         </div>
         <button class="button button-primary" id="add" disabled>Select a Size</button>
         <p class="note" style="margin-top: 20px; font-size: 0.8125rem;">
-          ✨ Handcrafted in Tema Community 8. Doorstep delivery across Ghana & worldwide shipping available.
+          Confirm availability, payment and delivery with the shop on WhatsApp.
         </p>
       </div>
     </div>`;
@@ -177,7 +179,7 @@ function showBag() {
         <button class="close" aria-label="Close shopping bag">×</button>
       </div>
       <div style="padding: 24px 0;">
-        <p class="note">Your saved bag is loading…</p>
+        <p class="note">${catalogFailed ? 'Your bag is temporarily unavailable. Refresh the page to try again.' : 'Your saved bag is loading…'}</p>
         <button class="text-button continue-shopping">Continue shopping</button>
       </div>`;
     if (!bag.open) bag.showModal();
@@ -196,7 +198,7 @@ function showBag() {
   const orderLines = available ? [
     'Hello Say Menswear! I would like to place an order:',
     ...lines.map(({product,size,quantity}) => `• ${quantity} × ${product.name} (${product.sku}), Size: ${size} — ${money(product.price * quantity)}`),
-    `\nTotal Subtotal: ${money(total)}`,
+    `\nSubtotal: ${money(total)}`,
     '\nPlease confirm availability and delivery arrangements.'
   ].join('\n') : '';
 
@@ -222,7 +224,7 @@ function showBag() {
           </div>
           <div class="bag-price">
             <span>${product ? money(product.price * quantity) : ''}</span>
-            <button class="remove" data-remove="${index}" aria-label="Remove item">×</button>
+            <button class="remove" data-remove="${index}" aria-label="Remove ${escape(product?.name || sku)}, size ${escape(size)}">×</button>
           </div>
         </div>
       `).join('') || `
@@ -258,22 +260,35 @@ function showBag() {
   if (!bag.open) bag.showModal();
 }
 
+const sectionObserver = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (!entry.isIntersecting) continue;
+    document.querySelectorAll('#tab-collection,#tab-bespoke').forEach(tab => {
+      tab.setAttribute('aria-current', tab.getAttribute('href') === '#' + entry.target.id);
+    });
+  }
+}, {rootMargin: '-15% 0px -55% 0px', threshold: 0});
+sectionObserver.observe(byId('collection'));
+sectionObserver.observe(byId('bespoke'));
+
 // Click and Backdrop Handling
 [detail, bag].forEach(dialog => {
   dialog.addEventListener('click', event => {
-    // If clicked directly on the dialog element outside its contents, close it
-    if (event.target === dialog) dialog.close();
+    const bounds = dialog.getBoundingClientRect();
+    const outside = event.clientX < bounds.left || event.clientX > bounds.right ||
+      event.clientY < bounds.top || event.clientY > bounds.bottom;
+    if (event.target === dialog && outside) dialog.close();
   });
 });
 
 document.addEventListener('click', event => {
-  const control = event.target.closest('[data-filter],[data-product],[data-remove],[data-quantity],.close,.continue-shopping,#reset-filters,[data-view],#tab-search,#tab-collection,#tab-bespoke');
+  const control = event.target.closest('[data-filter],[data-product],[data-remove],[data-quantity],.close,.continue-shopping,#reset-filters,#reset-search,[data-view],#tab-search,#tab-collection,#tab-bespoke');
   if (!control) return;
 
   if (control.id === 'tab-search') {
     const searchField = byId('search');
     byId('collection').scrollIntoView({behavior:'smooth'});
-    setTimeout(() => searchField.focus(), 300);
+    searchField.focus({preventScroll:true});
     return;
   }
 
@@ -293,7 +308,7 @@ document.addEventListener('click', event => {
     detail.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', button === control));
   }
 
-  if (control.id === 'reset-filters') {
+  if (control.id === 'reset-filters' || control.id === 'reset-search') {
     category = 'All';
     search = '';
     sort = 'featured';
@@ -304,10 +319,11 @@ document.addEventListener('click', event => {
   }
 
   if (control.dataset.filter) {
+    const fromFilters = control.parentElement.id === 'filters';
     category = control.dataset.filter;
     renderProducts();
     const filterBtn = byId('filters').querySelector(`[data-filter="${category}"]`);
-    if (filterBtn) filterBtn.focus();
+    if (fromFilters && filterBtn) filterBtn.focus();
   }
 
   if (control.dataset.product) {
@@ -325,6 +341,8 @@ document.addEventListener('click', event => {
     items[index].quantity = Math.max(1, Math.min(99, items[index].quantity + Number(control.dataset.change)));
     saveBag();
     showBag();
+    const button = bag.querySelector('[data-quantity="' + index + '"][data-change="' + control.dataset.change + '"]');
+    if (button && !button.disabled) button.focus();
   }
 
   if (control.classList.contains('continue-shopping')) {
@@ -366,9 +384,15 @@ try {
   products = data.products || [];
   if (data.orderPhone) orderPhone = data.orderPhone;
   catalogReady = true;
+  const hasPrices = products.some(product => Number.isInteger(product.price));
+  byId('sort').innerHTML = '<option value="featured">Featured styles</option><option value="name">Name A–Z</option>' +
+    (hasPrices ? '<option value="price-low">Price low to high</option><option value="price-high">Price high to low</option>' : '');
   renderProducts();
   if (bag.open) showBag();
 } catch {
+  catalogFailed = true;
+  byId('results').textContent = 'Collection unavailable';
+  if (bag.open) showBag();
   byId('products').innerHTML = `
     <div class="empty-state">
       <h3>The collection couldn’t load</h3>
