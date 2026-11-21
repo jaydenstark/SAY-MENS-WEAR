@@ -1,6 +1,6 @@
-const categories = ['All', 'Tops', 'Bottoms', 'Layers'];
+const categories = ['All', 'Caftans', 'Sets'];
 const currency = new Intl.NumberFormat('en-GH', {style:'currency', currency:'GHS'});
-const money = cents => currency.format(cents / 100);
+const money = cents => Number.isInteger(cents) ? currency.format(cents / 100) : 'Price on enquiry';
 const byId = id => document.getElementById(id);
 const escape = value => String(value).replace(/[&<>"']/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
@@ -28,8 +28,8 @@ function renderProducts() {
   const visible = products.filter(product =>
     (category === 'All' || product.category === category) &&
     [product.name, product.color, product.category].join(' ').toLowerCase().includes(search));
-  if (sort === 'price-low') visible.sort((a,b) => a.price - b.price);
-  if (sort === 'price-high') visible.sort((a,b) => b.price - a.price);
+  if (sort === 'price-low') visible.sort((a,b) => (a.price ?? Infinity) - (b.price ?? Infinity));
+  if (sort === 'price-high') visible.sort((a,b) => (b.price ?? -Infinity) - (a.price ?? -Infinity));
   byId('results').textContent = visible.length + (visible.length === 1 ? ' piece' : ' pieces');
   byId('clear-search').hidden = !search;
   document.querySelectorAll('.nav [data-filter]').forEach(link => {
@@ -43,12 +43,20 @@ function renderProducts() {
       </button>
       <div class="product-line"><h3><button class="product-name" data-product="${escape(product.sku)}">${escape(product.name)}</button></h3><span>${money(product.price)}</span></div>
       <p class="product-color">${escape(product.color)}</p>
-      <p class="product-sizes">${escape(product.sizes.join(' · '))}</p>
-      <button class="choose-size" data-product="${escape(product.sku)}">Choose size</button>
+      <p class="product-sizes">${product.sizes.length ? escape(product.sizes.join(' · ')) : 'Sample style'}</p>
+      <button class="choose-size" data-product="${escape(product.sku)}">${Number.isInteger(product.price) ? 'Choose size' : 'View style'}</button>
     </article>`).join('') || '<div class="empty-state"><h3>No pieces found</h3><p>Try another name, colour, or category.</p><button class="button" id="reset-filters">Show all pieces</button></div>';
 }
 
 function showProduct(product) {
+  if (!Number.isInteger(product.price) || !product.sizes.length) {
+    const enquiry = encodeURIComponent('Hello Say Menswear! I’m interested in ' + product.name + ' (' + product.sku + '). Please share the available designs, sizes and price.');
+    byId('detail-content').innerHTML = `<div class="dialog-head"><h2>${escape(product.name)}</h2><button class="close" aria-label="Close product details">×</button></div>
+      <div class="detail-grid">${image(product)}<div class="detail-info"><p class="eyebrow">${escape(product.category)}</p><p class="price">Price on enquiry</p><p class="detail-color">${escape(product.color)}</p><p class="note">This image shows a sample style. Contact us for current designs, sizing and pricing, or to discuss a bespoke outfit.</p>
+      ${orderPhone ? `<a class="button" href="https://wa.me/${orderPhone}?text=${enquiry}" target="_blank" rel="noopener">Ask on WhatsApp</a>` : '<p class="note">Call 027 958 7605 to enquire.</p>'}</div></div>`;
+    detail.showModal();
+    return;
+  }
   byId('detail-content').innerHTML = `<div class="dialog-head"><h2>${escape(product.name)}</h2>
     <button class="close" aria-label="Close product details">×</button></div>
     <div class="detail-grid">${image(product)}<div class="detail-info">
@@ -89,7 +97,7 @@ function showBag() {
     return;
   }
   const lines = items.map((item,index) => ({
-    ...item,index,product:products.find(product => product.sku === item.sku && product.sizes.includes(item.size))
+    ...item,index,product:products.find(product => product.sku === item.sku && Number.isInteger(product.price) && product.sizes.includes(item.size))
   }));
   const total = lines.reduce((sum,line) => sum + (line.product?.price || 0) * line.quantity, 0);
   const available = lines.length && lines.every(line => line.product);
