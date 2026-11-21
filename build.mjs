@@ -1,12 +1,12 @@
-import {mkdir,readFile,writeFile,copyFile} from 'node:fs/promises';
+import {mkdir,readFile,readdir,writeFile,copyFile} from 'node:fs/promises';
 
 const files = {
   '/':['index.html','text/html; charset=utf-8'],
   '/style.css':['style.css','text/css; charset=utf-8'],
   '/shop.js':['shop.js','text/javascript; charset=utf-8'],
 };
-for (const name of ['hero','hero-mobile','say-menswear','say-logo','caftan-ivory','caftan-navy','caftan-green','set-sand','linen','trouser','jacket','tank']) {
-  files['/assets/' + name + '.jpg'] = ['assets/' + name + '.jpg','image/jpeg'];
+for (const name of (await readdir('web/assets')).filter(name => name.endsWith('.jpg'))) {
+  files['/assets/' + name] = ['assets/' + name,'image/jpeg'];
 }
 const assets = {};
 for (const [route,[path,type]] of Object.entries(files)) {

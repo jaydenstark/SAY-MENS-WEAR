@@ -1,4 +1,4 @@
-const categories = ['All', 'Caftans', 'Sets'];
+const categories = ['All', 'Caftans', 'Sets', 'Shirts'];
 const currency = new Intl.NumberFormat('en-GH', {style:'currency', currency:'GHS'});
 const money = cents => Number.isInteger(cents) ? currency.format(cents / 100) : 'Price on enquiry';
 const byId = id => document.getElementById(id);
@@ -22,6 +22,12 @@ try {
 } catch {}
 const image = product => `<img src="${escape(product.image)}" alt="${escape(product.name)}" loading="lazy" decoding="async" width="440" height="510">`;
 
+function gallery(product) {
+  const views = product.images || [product.image];
+  return `<div class="product-gallery"><img id="gallery-main" class="gallery-main" src="${escape(product.image)}" alt="${escape(product.name)}" width="600" height="800">
+    ${views.length > 1 ? `<div class="gallery-thumbs" role="group" aria-label="Product photos">${views.map((src,index) => `<button data-view="${index}" data-gallery="${escape(product.sku)}" aria-label="View photo ${index + 1}" aria-pressed="${index === 0}"><img src="${escape(src)}" alt="" width="60" height="80" loading="lazy"></button>`).join('')}</div>` : ''}</div>`;
+}
+
 function renderProducts() {
   byId('filters').innerHTML = categories.map(name =>
     `<button type="button" aria-pressed="${name === category}" data-filter="${name}">${name === 'All' ? 'Shop all' : name}</button>`).join('');
@@ -43,7 +49,7 @@ function renderProducts() {
       </button>
       <div class="product-line"><h3><button class="product-name" data-product="${escape(product.sku)}">${escape(product.name)}</button></h3><span>${money(product.price)}</span></div>
       <p class="product-color">${escape(product.color)}</p>
-      <p class="product-sizes">${product.sizes.length ? escape(product.sizes.join(' · ')) : 'Sample style'}</p>
+      <p class="product-sizes">${product.sizes.length ? escape(product.sizes.join(' · ')) : 'Ask about sizing'}</p>
       <button class="choose-size" data-product="${escape(product.sku)}">${Number.isInteger(product.price) ? 'Choose size' : 'View style'}</button>
     </article>`).join('') || '<div class="empty-state"><h3>No pieces found</h3><p>Try another name, colour, or category.</p><button class="button" id="reset-filters">Show all pieces</button></div>';
 }
@@ -52,14 +58,14 @@ function showProduct(product) {
   if (!Number.isInteger(product.price) || !product.sizes.length) {
     const enquiry = encodeURIComponent('Hello Say Menswear! I’m interested in ' + product.name + ' (' + product.sku + '). Please share the available designs, sizes and price.');
     byId('detail-content').innerHTML = `<div class="dialog-head"><h2>${escape(product.name)}</h2><button class="close" aria-label="Close product details">×</button></div>
-      <div class="detail-grid">${image(product)}<div class="detail-info"><p class="eyebrow">${escape(product.category)}</p><p class="price">Price on enquiry</p><p class="detail-color">${escape(product.color)}</p><p class="note">This image shows a sample style. Contact us for current designs, sizing and pricing, or to discuss a bespoke outfit.</p>
+      <div class="detail-grid">${gallery(product)}<div class="detail-info"><p class="eyebrow">${escape(product.category)}</p><p class="price">Price on enquiry</p><p class="detail-color">${escape(product.color)}</p><p class="note">Contact us to confirm sizing, pricing and availability, or to discuss a bespoke outfit.</p>
       ${orderPhone ? `<a class="button" href="https://wa.me/${orderPhone}?text=${enquiry}" target="_blank" rel="noopener">Ask on WhatsApp</a>` : '<p class="note">Call 027 958 7605 to enquire.</p>'}</div></div>`;
     detail.showModal();
     return;
   }
   byId('detail-content').innerHTML = `<div class="dialog-head"><h2>${escape(product.name)}</h2>
     <button class="close" aria-label="Close product details">×</button></div>
-    <div class="detail-grid">${image(product)}<div class="detail-info">
+    <div class="detail-grid">${gallery(product)}<div class="detail-info">
     <p class="eyebrow">${escape(product.category)}</p><p class="price">${money(product.price)}</p><p class="detail-color">Colour · ${escape(product.color)}</p>
     <strong>Select size</strong><p id="size-feedback" class="note" aria-live="polite">Choose a size to add this item.</p><div class="sizes" role="group" aria-label="Size">
     ${product.sizes.map(size => `<button aria-pressed="false" data-size="${escape(size)}">${escape(size)}</button>`).join('')}
@@ -121,8 +127,13 @@ function showBag() {
 }
 
 document.addEventListener('click', event => {
-  const control = event.target.closest('[data-filter],[data-product],[data-remove],[data-quantity],.close,.continue-shopping,#reset-filters');
+  const control = event.target.closest('[data-filter],[data-product],[data-remove],[data-quantity],.close,.continue-shopping,#reset-filters,[data-view]');
   if (!control) return;
+  if (control.dataset.view !== undefined) {
+    const product = products.find(product => product.sku === control.dataset.gallery);
+    byId('gallery-main').src = product.images[Number(control.dataset.view)];
+    detail.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', button === control));
+  }
   if (control.id === 'reset-filters') {
     category = 'All';
     search = '';
