@@ -1,42 +1,236 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Say Menswear offers bespoke and ready-to-wear African menswear, including caftans in Tema Community 8, Ghana. WhatsApp or call 0279587605.">
-<title>Say Menswear | Caftans & African Menswear</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Say Menswear offers bespoke and ready-to-wear African menswear, caftans and occasion wear in Tema Community 8, Ghana. Bespoke tailoring and worldwide delivery.">
+<title>Say Menswear | Bespoke Caftans & African Menswear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css"><script src="/shop.js" type="module"></script>
+<link rel="stylesheet" href="/style.css">
+<script src="/shop.js" type="module"></script>
 </head>
 <body>
 <a class="skip-link" href="#collection">Skip to collection</a>
-<div class="announcement">Tema Community 8 · Bespoke & ready to wear</div>
-<header class="nav">
-<a href="/" class="logo"><img src="/assets/say-logo.jpg" alt="Say Menswear — Dress well. Feel confident." width="1280" height="853"></a>
-<nav aria-label="Main navigation"><a href="#collection" data-filter="All">Shop all</a><a href="#collection" data-filter="Caftans">Caftans</a><a href="#collection" data-filter="Sets">Sets</a><a href="#collection" data-filter="Shirts">Shirts</a><a href="#contact-title">Bespoke</a></nav>
-<button class="bag-link" id="open-bag">Bag <span id="count">0</span></button>
-</header>
-<main>
-<section class="hero">
-<div class="hero-copy"><div class="eyebrow">SAY MENSWEAR</div><h1>African wear.<br><em>Your style.</em></h1><p>Caftans and African menswear, bespoke and ready to wear.<br class="desktop"> Find your fit in Tema Community 8.</p><a class="button" href="#collection">Shop the collection</a></div>
-<img width="662" height="1024" fetchpriority="high" src="/assets/say-photo-20.jpg" alt="Say Menswear emerald caftan set with matching cap">
-</section>
-<section id="collection" class="collection">
-<div class="collection-head"><div><p class="eyebrow">SHOP THE COLLECTION</p><h2>Caftans & African wear</h2></div><div id="filters" aria-label="Filter products"></div></div>
-<p class="collection-note">Explore our caftans, occasion wear and shirts. Message us for sizing and prices.</p>
-<div class="shop-tools">
-<label class="search-field"><span class="search-symbol" aria-hidden="true"></span><input id="search" type="search" placeholder="Search the collection" aria-label="Search products" autocomplete="off"><button id="clear-search" aria-label="Clear search" hidden>×</button></label>
-<label class="sort-field"><span>Sort by</span><select id="sort" aria-label="Sort products"><option value="featured">Featured</option><option value="price-low">Price low to high</option><option value="price-high">Price high to low</option></select></label>
+
+<div class="announcement">
+  <div class="announcement-content">
+    <span>Tema Community 8, Ghana</span>
+    <span class="dot" aria-hidden="true">·</span>
+    <span>Bespoke Tailoring & Ready-to-Wear</span>
+    <span class="dot" aria-hidden="true">·</span>
+    <span>Worldwide Delivery Available</span>
+  </div>
 </div>
-<p id="results" class="results" role="status"></p>
-<div id="products" class="products" aria-live="polite"></div>
-</section>
-<section class="contact-section" aria-labelledby="contact-title">
-<div><p class="eyebrow">BESPOKE & READY TO WEAR</p><h2 id="contact-title">Let’s find your fit.</h2><p>Visit Say Menswear in Tema Community 8, or get in touch to discuss a bespoke caftan or African outfit.</p></div>
-<div class="contact-actions"><a class="button" href="https://wa.me/233279587605?text=Hello%20Say%20Menswear%2C%20I%27d%20like%20to%20ask%20about%20bespoke%20tailoring." target="_blank" rel="noopener">Enquire on WhatsApp</a><a class="call-link" href="tel:+233279587605">Call 027 958 7605</a></div>
-</section>
+
+<header class="nav">
+  <a href="/" class="logo" aria-label="Say Menswear Home">
+    <img src="/assets/say-logo.jpg" alt="Say Menswear — Dress well. Feel confident." width="1280" height="853">
+  </a>
+  <nav aria-label="Main navigation">
+    <a href="#collection" data-filter="All">Shop All</a>
+    <a href="#collection" data-filter="Caftans">Caftans</a>
+    <a href="#collection" data-filter="Sets">Sets</a>
+    <a href="#collection" data-filter="Shirts">Shirts</a>
+    <a href="#bespoke">Bespoke</a>
+  </nav>
+  <div class="nav-actions">
+    <a class="nav-whatsapp" href="https://wa.me/233279587605?text=Hello%20Say%20Menswear%2C%20I%20would%20like%20to%20enquire%20about%20your%20collection." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+      <svg class="icon-wa" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.586-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.057-2.09-.519-1.636-.677-2.73-2.327-2.812-2.436-.081-.109-.668-.888-.668-1.696 0-.808.423-1.205.574-1.368.151-.163.33-.204.44-.204.11 0 .22.002.316.006.101.004.237-.038.371.285.143.344.49 1.196.533 1.284.043.088.072.19.014.305-.058.115-.088.187-.175.289-.088.102-.185.228-.264.307-.088.088-.18.183-.077.36.103.176.458.756.983 1.224.676.602 1.246.788 1.423.876.176.088.279.073.382-.045.103-.118.441-.513.559-.689.117-.176.235-.147.397-.088.162.059 1.029.485 1.205.573.176.088.294.132.338.206.044.074.044.426-.1 1.224zm-3.392-10.416c5.523 0 10 4.477 10 10s-4.477 10-10 10c-1.704 0-3.308-.426-4.713-1.176L2 25l1.205-4.401A9.957 9.957 0 012.031 14c0-5.523 4.477-10 10-10z"/></svg>
+      <span>Enquire</span>
+    </a>
+    <button class="bag-link" id="open-bag" aria-label="Open shopping bag">
+      <svg class="icon-bag" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="bag-label">Bag</span>
+      <span id="count" class="badge">0</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="badge-tag">HANDCRAFTED IN GHANA</div>
+      <h1>African wear.<br><em>Your confidence.</em></h1>
+      <p class="hero-desc">Bespoke caftans, embroidered agbada sets and contemporary menswear. Tailored to your exact silhouette in Tema Community 8.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#collection">Shop the Collection</a>
+        <a class="button button-outline" href="#bespoke">Bespoke Fitting</a>
+      </div>
+      <div class="hero-highlights">
+        <div class="highlight-item">
+          <strong>Bespoke Cut</strong>
+          <span>Tailored to your body</span>
+        </div>
+        <div class="highlight-divider" aria-hidden="true"></div>
+        <div class="highlight-item">
+          <strong>Community 8 Studio</strong>
+          <span>Tema, Greater Accra</span>
+        </div>
+        <div class="highlight-divider" aria-hidden="true"></div>
+        <div class="highlight-item">
+          <strong>Global Shipping</strong>
+          <span>Worldwide delivery</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img width="662" height="1024" fetchpriority="high" src="/assets/say-photo-20.jpg" alt="Say Menswear emerald caftan set with matching cap">
+      <div class="hero-tag">
+        <span class="tag-title">Emerald Caftan Set</span>
+        <span class="tag-sub">Occasion & Everyday Elegance</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collection Section -->
+  <section id="collection" class="collection">
+    <div class="collection-head">
+      <div>
+        <p class="eyebrow">CURATED COLLECTION</p>
+        <h2>Caftans & Occasion Wear</h2>
+      </div>
+      <div id="filters" class="filters" aria-label="Filter products"></div>
+    </div>
+    <p class="collection-note">Explore ready-to-wear designs and bespoke orders. Tap any design to select your size or request bespoke tailoring directly on WhatsApp.</p>
+    
+    <div class="shop-tools">
+      <label class="search-field">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="search" placeholder="Search caftans, sets, colours…" aria-label="Search products" autocomplete="off">
+        <button id="clear-search" aria-label="Clear search" hidden>×</button>
+      </label>
+      <label class="sort-field">
+        <span>Sort</span>
+        <select id="sort" aria-label="Sort products">
+          <option value="featured">Featured Styles</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="collection-status-bar">
+      <p id="results" class="results" role="status">Loading collection…</p>
+    </div>
+
+    <div id="products" class="products" aria-live="polite"></div>
+  </section>
+
+  <!-- Bespoke Tailoring Experience Section -->
+  <section id="bespoke" class="contact-section" aria-labelledby="contact-title">
+    <div class="bespoke-intro">
+      <p class="eyebrow">BESPOKE TAILORING</p>
+      <h2 id="contact-title">Let’s craft your bespoke fit.</h2>
+      <p>Whether you need an emerald caftan for a wedding, a tailored agbada set, or custom-measured linen shirts, we handcraft each piece with precision in Tema Community 8.</p>
+      
+      <div class="bespoke-steps">
+        <div class="step-card">
+          <span class="step-num">01</span>
+          <h4>Choose Style & Fabric</h4>
+          <p>Pick a design from our lookbook or share your inspiration.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">02</span>
+          <h4>Share Measurements</h4>
+          <p>Provide your measurements via WhatsApp or visit our studio.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">03</span>
+          <h4>Tailored & Delivered</h4>
+          <p>Carefully sewn, pressed, and delivered to your doorstep.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-card-badge">DIRECT CONCIERGE</div>
+      <h3>Start a Consultation</h3>
+      <p>Message our master tailor on WhatsApp or call our line directly.</p>
+      <div class="contact-actions">
+        <a class="button button-wa" href="https://wa.me/233279587605?text=Hello%20Say%20Menswear%2C%20I%27d%20like%20to%20discuss%20a%20bespoke%20order." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.586-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.057-2.09-.519-1.636-.677-2.73-2.327-2.812-2.436-.081-.109-.668-.888-.668-1.696 0-.808.423-1.205.574-1.368.151-.163.33-.204.44-.204.11 0 .22.002.316.006.101.004.237-.038.371.285.143.344.49 1.196.533 1.284.043.088.072.19.014.305-.058.115-.088.187-.175.289-.088.102-.185.228-.264.307-.088.088-.18.183-.077.36.103.176.458.756.983 1.224.676.602 1.246.788 1.423.876.176.088.279.073.382-.045.103-.118.441-.513.559-.689.117-.176.235-.147.397-.088.162.059 1.029.485 1.205.573.176.088.294.132.338.206.044.074.044.426-.1 1.224zm-3.392-10.416c5.523 0 10 4.477 10 10s-4.477 10-10 10c-1.704 0-3.308-.426-4.713-1.176L2 25l1.205-4.401A9.957 9.957 0 012.031 14c0-5.523 4.477-10 10-10z"/></svg>
+          Chat on WhatsApp
+        </a>
+        <a class="button button-call" href="tel:+233279587605">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call 027 958 7605
+        </a>
+      </div>
+      <p class="contact-hours">Studio Hours: Mon – Sat, 9:00 AM – 6:00 PM GMT</p>
+    </div>
+  </section>
 </main>
-<footer><a href="/" class="logo"><img src="/assets/say-logo.jpg" alt="Say Menswear — Dress well. Feel confident." width="1280" height="853"></a><p>Tema Community 8 · Ghana</p><a href="#collection">Back to collection</a></footer>
-<nav class="mobile-bar" aria-label="Quick navigation"><a href="#collection">Shop collection</a><button id="mobile-bag">View bag <span id="mobile-count">0</span></button></nav>
-<dialog id="detail" aria-label="Product details"><div id="detail-content"></div></dialog>
-<dialog id="bag" aria-label="Shopping bag"><div id="bag-content"></div></dialog>
-</body></html>
+
+<!-- Luxury Footer -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="/" class="logo">
+        <img src="/assets/say-logo.jpg" alt="Say Menswear" width="1280" height="853">
+      </a>
+      <p class="footer-tagline">Dress well. Feel confident. Handcrafted African menswear and bespoke tailoring in Greater Accra, Ghana.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h5>Studio</h5>
+        <p>Tema Community 8<br>Greater Accra Region<br>Ghana</p>
+      </div>
+      <div class="footer-col">
+        <h5>Orders & Inquiries</h5>
+        <p><a href="tel:+233279587605">+233 27 958 7605</a></p>
+        <p><a href="https://wa.me/233279587605" target="_blank" rel="noopener">WhatsApp Support</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Say Menswear. All rights reserved.</p>
+    <a href="#collection" class="back-to-top">Back to collection ↑</a>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp Quick Button -->
+<a class="whatsapp-fab" href="https://wa.me/233279587605?text=Hello%20Say%20Menswear%2C%20I%20have%20an%20enquiry%20about%20your%20menswear." target="_blank" rel="noopener" aria-label="Direct WhatsApp Concierge">
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.586-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.057-2.09-.519-1.636-.677-2.73-2.327-2.812-2.436-.081-.109-.668-.888-.668-1.696 0-.808.423-1.205.574-1.368.151-.163.33-.204.44-.204.11 0 .22.002.316.006.101.004.237-.038.371.285.143.344.49 1.196.533 1.284.043.088.072.19.014.305-.058.115-.088.187-.175.289-.088.102-.185.228-.264.307-.088.088-.18.183-.077.36.103.176.458.756.983 1.224.676.602 1.246.788 1.423.876.176.088.279.073.382-.045.103-.118.441-.513.559-.689.117-.176.235-.147.397-.088.162.059 1.029.485 1.205.573.176.088.294.132.338.206.044.074.044.426-.1 1.224zm-3.392-10.416c5.523 0 10 4.477 10 10s-4.477 10-10 10c-1.704 0-3.308-.426-4.713-1.176L2 25l1.205-4.401A9.957 9.957 0 012.031 14c0-5.523 4.477-10 10-10z"/></svg>
+  <span class="fab-text">WhatsApp</span>
+</a>
+
+<!-- Ergonomic Mobile Bottom Nav Bar -->
+<nav class="mobile-bar" aria-label="Mobile quick navigation">
+  <a href="#collection" class="mobile-tab" id="tab-collection">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+    <span>Collection</span>
+  </a>
+  <button class="mobile-tab" id="tab-search" type="button" aria-label="Open search">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span>Search</span>
+  </button>
+  <a href="#bespoke" class="mobile-tab" id="tab-bespoke">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 4-3 3M8 11l-5 5a2.12 2.12 0 0 0 3 3l5-5M13 6l2-2a2 2 0 0 1 2.83 0l1.17 1.17a2 2 0 0 1 0 2.83L17 10"/><path d="m10 9 5 5"/></svg>
+    <span>Bespoke</span>
+  </a>
+  <button class="mobile-tab" id="mobile-bag" type="button" aria-label="View shopping bag">
+    <div class="mobile-bag-icon-wrapper">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span id="mobile-count" class="badge">0</span>
+    </div>
+    <span>Bag</span>
+  </button>
+</nav>
+
+<!-- Product Detail Slide-Over Modal / Bottom Sheet -->
+<dialog id="detail" aria-label="Product details">
+  <div class="drawer-handle" aria-hidden="true"></div>
+  <div id="detail-content"></div>
+</dialog>
+
+<!-- Slide-Over Shopping Bag Drawer -->
+<dialog id="bag" aria-label="Shopping bag">
+  <div class="drawer-handle" aria-hidden="true"></div>
+  <div id="bag-content"></div>
+</dialog>
+
+</body>
+</html>
